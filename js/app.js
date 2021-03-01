@@ -1,11 +1,11 @@
 'use strict';
 
-let productsArray = ['bag','banana', 'bathroom', 'boots', 'breakfast', 'bubblegum',
-  'chair','cthulhu', 'dog-duck' , 'dragon', 'pen','pet-sweep','scissors',
-  'shark', 'sweep', 'tauntaun', 'unicorn', 'usb','water-can','wine-glass'];
+// let productsArray = ['bag','banana', 'bathroom', 'boots', 'breakfast', 'bubblegum',
+//   'chair','cthulhu', 'dog-duck' , 'dragon', 'pen','pet-sweep','scissors',
+//   'shark', 'sweep', 'tauntaun', 'unicorn', 'usb','water-can','wine-glass'];
 
 
-let productsArrayExtension = ['bag.jpg','banana.jpg', 'bathroom.jpg', 'boots.jpg', 'breakfast.jpg', 'bubblegum.jpg',
+let productsArray = ['bag.jpg','banana.jpg', 'bathroom.jpg', 'boots.jpg', 'breakfast.jpg', 'bubblegum.jpg',
   'chair.jpg','cthulhu.jpg', 'dog-duck.jpg' , 'dragon.jpg', 'pen.jpg','pet-sweep.jpg','scissors.jpg',
   'shark.jpg', 'sweep.png', 'tauntaun.jpg', 'unicorn.jpg', 'usb.gif','water-can.jpg','wine-glass.jpg'];
 
@@ -15,10 +15,9 @@ const secondImage = document.getElementById( 'secondImage' );
 const thirdImage = document.getElementById( 'thirdImage' );
 
 
-function Products ( name,namewithEtension ){
+function Products ( name,img ){
   this.name = name;
-  this.namewithEtension = namewithEtension;
-  this.image = `./img/${namewithEtension}`;
+  this.image = `./img/${img}`;
   this.timesOfshown = 0;
   this.clicks = 0;
   Products.all.push( this );
@@ -26,9 +25,12 @@ function Products ( name,namewithEtension ){
 }
 Products.all = [];
 
+function getName( fileName ) {
+  return fileName.split( '.' ).slice( 0,-1 ).join( '.' );
+}
 
 for( let i = 0; i < productsArray.length; i++ ) {
-  new Products( productsArray[i],productsArrayExtension[i] );
+  new Products( getName ( productsArray[i] ),productsArray[i] );
 
 }
 
@@ -65,7 +67,7 @@ function renderNewProduct(){
   Products.all[secondIndex].timesOfshown++;
   Products.all[thirdIndex].timesOfshown++;
 
-  firstImage.src = Products.all[0].image;
+
 }
 
 const clickingCounter = 25;
@@ -97,10 +99,8 @@ function clicking ( event ) {
 
 
       renderNewProduct();
-      // console.log( Products.all[firstProductIndex] );
-      console.log( Products.all[secondProductIndex] );
 
-      // console.log( Products.all );
+      //  console.log( Products.all );
     }
   }
   else{
@@ -116,73 +116,28 @@ renderNewProduct();
 
 
 
+const button = document.getElementById( 'results' );
+function list() {
+  console.log( Products.all );
+  const parentElement = document.getElementById ( 'results' );
+  // const articleElement = document.getElementById ( 'theList' );
+  // parentElement.appendChild(articleElement);
+  const listElement = document.createElement( 'ul' );
+  // listElement.id = 'myList';
+  parentElement.appendChild( listElement );
+  for ( let j = 0; j < Products.all.length ; j ++ ){
+    const l1Element = document.createElement( 'li' );
+    listElement.appendChild( l1Element );
+    l1Element.textContent = `${Products.all[j].name} had ${Products.all[j].timesOfshown} votes and was seen  ${Products.all[j].clicks}`;
+    // console.log( l1Element.textContent );
+    // console.log( Products.all[j].name );
+  }
 
-// function list() {
-//   const parentElement = document.getElementById ( 'theList' );
-//   const listElement = document.createElement( 'list' );
-//   listElement.id = 'myList';
-//   parentElement.appendChild( listElement );
-//   for ( let j = 0; j < Products.counters.length ; j ++ ){
-//     listElement.textContent = `${Products.name[j]} had ${Products.timesOfshown[j]} votes`;
-//     console.log( listElement.textContent );
-//   }
+}
 
-// }
+renderNewProduct();
 
-// list();
-// renderNewProduct();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+button.addEventListener( 'click', list );
 
 
 
