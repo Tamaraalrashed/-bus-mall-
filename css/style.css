@@ -1,0 +1,26 @@
+*{
+box-sizing: border-box;
+}
+
+body {
+    width: 960px;
+    margin: auto;
+  }
+
+  .container {
+    display: grid;
+    grid-template-rows: 100px minmax(calc(100vh - 170px) , 1fr) 50px;
+    gap: 10px;
+  }
+
+  .products-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr ;
+    gap: 20px;
+  }
+
+  
+img {
+    width: 100%;
+  }
+  
