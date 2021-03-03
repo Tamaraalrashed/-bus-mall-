@@ -79,8 +79,8 @@ function renderNewProduct() {
   let indexes = [];
   indexes.push( firstIndex,secondIndex,thirdIndex );
   console.log( indexes );
-  
-  
+
+
 }
 
 document.getElementById( 'results' ).style.visibility = 'hidden';
@@ -109,19 +109,21 @@ function clicking( event ) {
       Products.counters++;
 
       renderNewProduct();
+      localStorage.setItem( 'numberOfVotes', JSON.stringify( Products.all ) );
     }
   } else {
     renderChart();
     document.getElementById( 'results' ).style.visibility = 'visible';
     removeEventListener( 'click', clicking );
-    localStorage.setItem( 'numberOfVotes', JSON.stringify( Products.all ) );
+    // localStorage.setItem( 'numberOfVotes', JSON.stringify( Products.all ) );
+
   }
 }
 
- productsSection.addEventListener( 'click', clicking );
+productsSection.addEventListener( 'click', clicking );
 
 renderNewProduct();
-
+ 
 const button = document.getElementById( 'results' );
 function list() {
   console.log( Products.all );
@@ -135,7 +137,8 @@ function list() {
     l1Element.textContent = `${Products.all[j].name} had ${Products.all[j].clicks} votes and was seen ${Products.all[j].timesOfshown} times.`;
     console.log( l1Element.textContent );
   }
-  button.removeEventListener('click', list);
+  
+  button.removeEventListener( 'click', list );
 
 }
 
